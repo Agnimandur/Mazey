@@ -13,7 +13,13 @@ class Developer(commands.Cog):
 		self.bot = bot
 	
 	async def cog_check(self, ctx):
-		return ctx.channel.category.name=='Mazey' and ctx.author.guild_permissions.administrator
+		return ctx.channel.category.name=='Mazey' or ctx.author.guild_permissions.administrator
+
+	@commands.command(name='setup',help='Setup the Mazey Bot')
+	async def setup(self,ctx):
+		mazey = await ctx.guild.create_category('Mazey')
+		for i in [1,2,3]:
+			await mazey.create_text_channel(f"game {i}")
 
 	@commands.command(name='cancel',help="Manually end an ongoing game.")
 	async def cancel(self,ctx):
